@@ -15,6 +15,10 @@ class Directorio extends Migration
     {
         Schema::create('directorios', function (Blueprint $table) {
             $table->id();
+            $table->string("nombre",100);
+            $table->string("direccion")->nullable();
+            $table->integer("telefono")->unique();
+            $table->string("foto")->nullable();
             $table->timestamps();
         });
     }
