@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 //importar
 use App\Directorio;
+use App\Http\Requests\CreateDirectorioRequest;
 use Illuminate\Http\Request;
 
 class DirectorioController extends Controller
@@ -23,14 +24,14 @@ class DirectorioController extends Controller
     }
 
     //metodo para insertar datos
-    public function store(Request $request)
+    public function store(CreateDirectorioRequest $request)
     {
         //capturamos los datos
         $input= $request->all();
         Directorio::create($input);
         return response()->json([
             'res'=>true,
-            'message'=>"Registro creado correctamente"
+            'message'=>'Registro creado correctamente'
         ],200);
     }
 
