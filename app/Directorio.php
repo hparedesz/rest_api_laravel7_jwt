@@ -15,5 +15,10 @@ class Directorio extends Model
         "telefono",
         "foto"
     ];
+    //campos que queremos ocultar
+    protected $hidden=[
+        "created_at",
+        "updated_at"
+    ];
 
 }
