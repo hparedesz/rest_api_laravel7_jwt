@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //importar
 use App\Directorio;
 use App\Http\Requests\CreateDirectorioRequest;
+use App\Http\Requests\UpdateDirectorioRequest;
 use Illuminate\Http\Request;
 
 class DirectorioController extends Controller
@@ -41,26 +42,24 @@ class DirectorioController extends Controller
         return $directorio;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    //put actualizar datos
+    public function update(UpdateDirectorioRequest $request, Directorio $directorio)
     {
-        //
+        $input = $request->all();
+        $directorio->update($input);
+        return response()->json([
+            'res'=>true,
+            'message'=>'Registro actualizado correctamente'
+        ],200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //delete eliminar registros
     public function destroy($id)
     {
-        //
+        Directorio::destroy($id);
+        return response()->json([
+            'res'=>true,
+            'message'=>'Registro eliminado correctamente'
+        ],200);
     }
 }
