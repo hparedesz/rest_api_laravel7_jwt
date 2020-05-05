@@ -24,11 +24,24 @@ class DirectorioController extends Controller
         return $directorios;
     }
 
+    private function cargarArchivo($file){
+        //obtener el nombre y la extension del archivo
+        $nombreArchivo= time().'.'.$file->getClientOriginalExtension();
+        //se movera a la carpera publica
+        $file->move(public_path('fotografias'),$nombreArchivo);
+        return $nombreArchivo;
+    }
+
     //metodo para insertar datos
     public function store(CreateDirectorioRequest $request)
     {
         //capturamos los datos
         $input= $request->all();
+
+        //si tiene el parametro foto
+        if($request->has('foto')){
+            $input['foto']=$this->cargarArchivo($request->foto);
+        }
         Directorio::create($input);
         return response()->json([
             'res'=>true,
@@ -46,6 +59,10 @@ class DirectorioController extends Controller
     public function update(UpdateDirectorioRequest $request, Directorio $directorio)
     {
         $input = $request->all();
+        //si tiene el parametro foto
+        if($request->has('foto')){
+            $input['foto']=$this->cargarArchivo($request->foto);
+        }
         $directorio->update($input);
         return response()->json([
             'res'=>true,
